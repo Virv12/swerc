@@ -21,20 +21,15 @@ for path, dirs, files in os.walk("./_src"):
             if not f.endswith(".sh"):
                 text = re.sub(r"\n?[ \t]*(?<!/)//[^/].+", "", text)
             dat = text.splitlines()
-            out = open(p, 'w')
+            out = open(p, "w")
 
             warning = False
             error = False
             last = False
             for dat, hash in zip(dat, mkhash(dat)):
                 last = False
-                s = dat.lstrip(' ')
-                add = len(dat) - len(s)
-                if add > 0:
-                    s = ' ' + s
-                    add -= 1
-                s = ' '*add + s
-                if(len(s) > MARGIN):
+                s = dat
+                if len(s) > MARGIN:
                     print(s, file=out)
                     warning = True
                     last = True
@@ -43,9 +38,7 @@ for path, dirs, files in os.walk("./_src"):
                         print(len(s), MARGIN)
                         print(repr(s))
                 else:
-                    if len(s) < MARGIN:
-                        s = s+' '
-                    print(s.ljust(MARGIN, ' ') + "//" + hash, file=out)
+                    print(s.ljust(MARGIN, " ") + "//" + hash, file=out)
 
             if last:
                 error = True
