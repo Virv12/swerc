@@ -9,7 +9,7 @@ def mkhash(dat):
     conc = ""
     for i in dat:
         conc += re.sub('\s*', '', i) + "\n"
-        yield hashlib.md5(conc.decode('utf8')).hexdigest()[:2]
+        yield hashlib.md5(conc.encode('utf8')).hexdigest()[:2]
 
 for path, dirs, files in os.walk('./_src'):
     for f in files:
